@@ -58,7 +58,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 	itoa(theta,str,10);
 	
 
-	HBITMAP MyBitmap, OldBitmap;		
+	HBITMAP MyBitmap, OldBitmap;
+	HBITMAP MyBitmap2, OldBitmap2;
 	switch(iMessage) {
 	
 	case WM_KEYDOWN:	
@@ -134,9 +135,20 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 				v=v+0.1;
 				
 				hdc = BeginPaint(hWnd, &ps);
+				
 				MemDC=CreateCompatibleDC(hdc);
-				MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP2));
+				MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP1));
 				OldBitmap=(HBITMAP)SelectObject(MemDC, MyBitmap);
+				BitBlt(hdc, 0,400,100,100,MemDC,0,0,SRCCOPY);
+				SelectObject(MemDC,OldBitmap);
+				DeleteObject(MyBitmap);
+				DeleteDC(MemDC);
+				EndPaint(hWnd, &ps);
+
+			
+				MemDC=CreateCompatibleDC(hdc);
+				MyBitmap2=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP2));
+				OldBitmap2=(HBITMAP)SelectObject(MemDC, MyBitmap2);
 				BitBlt(hdc,400,450,(int)v*25,100,MemDC,0,0,SRCCOPY);
 				SelectObject(MemDC,OldBitmap);
 				DeleteObject(MyBitmap);
@@ -153,9 +165,20 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 				v=v-0.1;
 
 				hdc = BeginPaint(hWnd, &ps);
+			
 				MemDC=CreateCompatibleDC(hdc);
-				MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP2));
+				MyBitmap=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP1));
 				OldBitmap=(HBITMAP)SelectObject(MemDC, MyBitmap);
+				BitBlt(hdc, 0,400,100,100,MemDC,0,0,SRCCOPY);
+				SelectObject(MemDC,OldBitmap);
+				DeleteObject(MyBitmap);
+				DeleteDC(MemDC);
+				EndPaint(hWnd, &ps);
+
+				
+				MemDC=CreateCompatibleDC(hdc);
+				MyBitmap2=LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP2));
+				OldBitmap2=(HBITMAP)SelectObject(MemDC, MyBitmap2);
 				BitBlt(hdc,400,450,(int)v*25,100,MemDC,0,0,SRCCOPY);
 				SelectObject(MemDC,OldBitmap);
 				DeleteObject(MyBitmap);
@@ -187,7 +210,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM lParam)
 				nSy=400+-nSx*tan(rad)+(0.098*nSx*nSx)/(2*v*v*cos(rad)*cos(rad));
 			}
 
-			BitBlt(hdc, (int)nSx,(int)nSy,100,100,MemDC,0,0,SRCCOPY);
+			BitBlt(hdc, nSx,nSy,100,100,MemDC,0,0,SRCCOPY);
 			SelectObject(MemDC,OldBitmap);
 			DeleteObject(MyBitmap);
 			DeleteDC(MemDC);
